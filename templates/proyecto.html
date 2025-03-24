@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Gestión de Proyectos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Proyectos</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'inicio'%}">Inicio</a></li>
+                <li><a href="{% url 'contrato'%}">Contratos</a></li>
+                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
+                <li><a href="{% url 'perfil'%}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="proyectos">
+        <h2>Gestión de Proyectos</h2>
+        <p>Añade y gestiona tus proyectos fácilmente.</p>
+        
+        <form id="proyecto-form">
+            <label for="nombre-proyecto">Nombre del Proyecto:</label>
+            <input type="text" id="nombre-proyecto" required>
+            
+            <label for="descripcion-proyecto">Descripción:</label>
+            <textarea id="descripcion-proyecto" required></textarea>
+            
+            <label for="fecha-inicio">Fecha de Inicio:</label>
+            <input type="date" id="fecha-inicio" required>
+            
+            <label for="fecha-fin">Fecha de Finalización:</label>
+            <input type="date" id="fecha-fin" required>
+            
+            <button type="button" class="add-proyecto" onclick="agregarProyecto()">Agregar Proyecto</button>
+        </form>
+        <br>
+        
+        <div class="proyecto-container" id="lista-proyectos">
+            <!-- Los proyectos se agregarán dinámicamente aquí -->
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Software de Gestión para Freelancers</p>
+    </footer>
+    
+    <script>
+        function agregarProyecto() {
+            const nombre = document.getElementById('nombre-proyecto').value;
+            const descripcion = document.getElementById('descripcion-proyecto').value;
+            const fechaInicio = document.getElementById('fecha-inicio').value;
+            const fechaFin = document.getElementById('fecha-fin').value;
+            
+            if (nombre && descripcion && fechaInicio && fechaFin) {
+                const contenedor = document.getElementById('lista-proyectos');
+                const nuevoProyecto = document.createElement('div');
+                nuevoProyecto.classList.add('proyecto-item');
+                nuevoProyecto.innerHTML = `
+                    <h3>${nombre}</h3>
+                    <p>${descripcion}</p>
+                    <p><strong>Inicio:</strong> ${fechaInicio} - <strong>Fin:</strong> ${fechaFin}</p>
+                `;
+                contenedor.appendChild(nuevoProyecto);
+                
+                document.getElementById('proyecto-form').reset();
+            } else {
+                alert('Por favor, completa todos los campos.');
+            }
+        }
+    </script>
+</body>
+</html>

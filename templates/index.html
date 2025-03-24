@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Software de Gestión para Freelancers</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Software de Gestión para Freelancers</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'contrato' %}">Contratos</a></li>
+                <li><a href="{% url 'proyecto' %}">Gestión de Proyectos</a></li>
+                <li><a href="{% url 'tiempo' %}">Seguimiento de Tiempos</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="contratos">
+        <h2>Creación de Contratos</h2>
+        <p>Facilita la creación y gestión de contratos con clientes.</p>
+        <img src="{%static 'img/contra.jpeg'%}" alt="Contrato">
+        <br>
+        <a href="{% url 'contrato' %}" class="btn-ir">Ir a contratos</a>
+    </section>
+    
+    <section id="proyectos">
+        <h2>Gestión de Proyectos</h2>
+        <p>Organiza y gestiona tus proyectos de manera eficiente.</p>
+        <img src="{%static 'img/proyect.jpeg'%}" alt="Proyecto">
+        <br>
+        <a href="{% url 'proyecto' %}" class="btn-ir">Ir a Proyectos</a>
+    </section>
+    
+    <section id="tiempo">
+        <h2>Seguimiento de Tiempos</h2>
+        <p>Registra y monitorea el tiempo dedicado a cada tarea.</p>
+        <img src="img/tiemp.jpeg" alt="Seguimiento de Tiempo">
+        <br>
+        <a href="{% url 'tiempo' %}" class="btn-ir">Ir a seguir Tiempo</a>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <footer>
+        <p>&copy; 2025 Software de Gestión para Freelancers. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

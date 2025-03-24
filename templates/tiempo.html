@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Seguimiento de Tiempos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Seguimiento de Tiempos</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'inicio'%}">Inicio</a></li>
+                <li><a href="{% url 'contrato'%}">Contratos</a></li>
+                <li><a href="{% url 'proyecto' %}">Gestión de Proyectos</a></li>
+                <li><a href="{% url 'perfil'%}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="seguimiento-tiempo">
+        <h2>Seguimiento de Tiempos</h2>
+        <p>Registra y monitorea el tiempo dedicado a cada tarea.</p>
+        
+        <form id="form-tiempo">
+            <label for="tarea">Tarea:</label>
+            <input type="text" id="tarea" name="tarea" required>
+            
+            <label for="tiempo">Tiempo dedicado (horas):</label>
+            <input type="number" id="tiempo" name="tiempo" required>
+            
+            <button type="button" onclick="registrarTiempo()">Registrar Tiempo</button>
+        </form>
+        
+        <div id="lista-tiempos" class="tiempo-container">
+            <!-- Los registros de tiempo aparecerán aquí -->
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Software de Gestión para Freelancers</p>
+    </footer>
+    
+    <script>
+        function registrarTiempo() {
+            const tarea = document.getElementById('tarea').value;
+            const tiempo = document.getElementById('tiempo').value;
+            
+            if (tarea && tiempo) {
+                const contenedor = document.getElementById('lista-tiempos');
+                const nuevoRegistro = document.createElement('div');
+                nuevoRegistro.classList.add('tiempo-item');
+                nuevoRegistro.innerHTML = `<p><strong>${tarea}:</strong> ${tiempo} horas</p>`;
+                contenedor.appendChild(nuevoRegistro);
+                
+                document.getElementById('form-tiempo').reset();
+            } else {
+                alert('Por favor, completa todos los campos.');
+            }
+        }
+    </script>
+</body>
+</html>

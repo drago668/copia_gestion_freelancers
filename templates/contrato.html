@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Creación de Contratos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Contratos</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'inicio'%}">Inicio</a></li>
+                <li><a href="{% url 'proyecto'%}">Gestión de Proyectos</a></li>
+                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
+                <li><a href="{% url 'perfil'%}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="contratos">
+        <h2>Creación de Contratos</h2>
+        <p>Facilita la creación y gestión de contratos con clientes.</p>
+        <form>
+            <label for="nombre_cliente">Nombre del Cliente:</label>
+            <input type="text" id="nombre_cliente" name="nombre_cliente" required>
+            
+            <label for="descripcion_servicio">Descripción del Servicio:</label>
+            <textarea id="descripcion_servicio" name="descripcion_servicio" required></textarea>
+            
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+            
+            <label for="fecha_fin">Fecha de Finalización:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" required>
+            
+            <label for="monto">Monto Acordado ($):</label>
+            <input type="number" id="monto" name="monto" required>
+            
+            <button type="submit">Generar Contrato</button>
+        </form>
+    </section>
+    <br>
+    
+    <footer>
+        <p>&copy; 2025 Software de Gestión para Freelancers. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

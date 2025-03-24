@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Perfil de Freelancers</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'inicio' %}">Inicio</a></li>
+                <li><a href="{% url 'contrato' %}">Contratos</a></li>
+                <li><a href="{% url 'proyecto'%}">Gestión de Proyectos</a></li>
+                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="proyecto.html">Proyectos</a></li>
+            <li><a href="contrato.html">Contratos</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+        </ul>
+    </nav>
+            
+    <section id="perfil">
+        <h2>Información del Freelancer</h2>
+        <div class="perfil-container">
+            <img src="img/perfil.jpeg" alt="Foto de perfil" class="perfil-img">
+            <form>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion"></textarea>
+                
+                <button type="submit">Guardar Cambios</button>
+            </form>
+        </div>
+    </section>
+    <br>
+    
+    <footer>
+        <p>&copy; 2025 Software de Gestión para Freelancers</p>
+    </footer>
+</body>
+</html>
