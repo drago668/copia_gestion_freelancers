@@ -12,6 +12,12 @@
         <h1>Gestión de Proyectos</h1>
         <nav>
             <ul>
+                <li>{% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Cerrar sesión</button>
+                    </form>
+                    {%endif%}</li>
                 <li><a href="{% url 'inicio'%}">Inicio</a></li>
                 <li><a href="{% url 'contrato'%}">Contratos</a></li>
                 <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
