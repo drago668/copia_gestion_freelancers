@@ -69,24 +69,4 @@ class SeguimientoTiempo(models.Model):
     def __str__(self):
         return f"Seguimiento {self.id_tiempo} - Tarea {self.id_tarea}"
 # Create your models here.
-from django.db import models
-from django.contrib.auth.models import User
 
-class Proyecto(models.Model):
-    ESTADOS = [
-        ('pendiente', 'Pendiente'),
-        ('en_proceso', 'En Proceso'),
-        ('terminado', 'Terminado'),
-    ]
-    python manage.py makemigrations
-python manage.py migrate
-
-    nombre = models.CharField(max_length=255)
-    descripcion = models.TextField()
-    estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
-    creador = models.ForeignKey(User, on_delete=models.CASCADE, related_name='proyectos_creados')
-    colaboradores = models.ManyToManyField(User, related_name='proyectos_asignados', blank=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.nombre
