@@ -10,14 +10,15 @@
 </head>
 <body>
 
-    <div class="container ">
-      <nav><h2>Registrate</h2></nav>
+    <div class="container">
+      <nav></nav>
       
       <form method="post">
         {% csrf_token %}
         <div class="card mx-auto" style="width: 30rem;">
             
           <div class="card-body">
+            <h2>Registrate</h2>
             <h5 class="card-title">Completa todos los campos</h5>
             {{form | crispy}}
             

@@ -22,7 +22,9 @@ def tiempo(request):
     return render(request,'tiempo.html')
 @login_required
 def perfil(request):
-    return render(request, 'perfil.html')
+    proyectos = Proyecto.objects.filter(id_usuario=request.user)
+    return render(request, 'perfil.html', {"proyectos": proyectos})
+    
 
 
 def registrar(request):
@@ -32,11 +34,15 @@ def registrar(request):
         form= UsuarioForm(request.POST)
         if form.is_valid():
             print("El formulario es válido")
-            form.save()
-            user=authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'])
-            login(request,user)
+            user= form.save(commit=False)
+            raw_password=form.cleaned_data['password']
+            user.set_password(raw_password)
+            user.is_active = True
+            user.save()
+            print("Usuario guardado:", user.username)
+            
             return redirect('inicio')
-            #render(request,'index.html')
+            
         else:
             print("El formulario no es válido")  # Muestra que hubo errores de validación
             print(form.errors)  # Muestra los errores específicos

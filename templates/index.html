@@ -11,6 +11,9 @@
 </head>
 <body>
     <header>
+        {% if request.user.is_authenticated %}
+    <h6 style="text-align: left;">Bienvenido, {{ request.user.username }}!</h6>
+    {% endif %}
         <h1>Software de Gestión para Freelancers</h1>
         <nav>
             <ul>
