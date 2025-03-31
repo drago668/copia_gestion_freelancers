@@ -11,18 +11,17 @@
     <header>
         <h1>Contratos</h1>
         <nav>
-            
             <ul>
-                <li>{% if request.user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Cerrar sesión</button>
-                    </form>
-                    {%endif%}</li>
                 <li><a href="{% url 'inicio'%}">Inicio</a></li>
                 <li><a href="{% url 'proyecto'%}">Gestión de Proyectos</a></li>
                 <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
                 <li><a href="{% url 'perfil'%}">Perfil</a></li>
+                <li>{% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
+                    </form>
+                    {%endif%}</li>
             </ul>
         </nav>
     </header>

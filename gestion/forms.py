@@ -1,8 +1,9 @@
 from django import forms
-from gestion.models  import CustomUser
+from gestion.models import CustomUser
 
 class UsuarioForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
+    confirm_password = forms.CharField(label="Confirmar Contraseña",widget=forms.PasswordInput)
     class Meta:
         model= CustomUser
         fields=[
@@ -16,3 +17,5 @@ class UsuarioForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    
