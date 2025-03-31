@@ -12,7 +12,6 @@
         <h1>Gestión de Proyectos</h1>
         <nav>
             <ul>
-                <li><a href="{% url 'proyectos'%}">ver proyectos</a></li>
                 <li><a href="{% url 'inicio'%}">Inicio</a></li>
                 <li><a href="{% url 'contrato'%}">Contratos</a></li>
                 <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
@@ -30,23 +29,6 @@
     <section id="proyectos">
         <h2>Gestión de Proyectos</h2>
         <p>Añade y gestiona tus proyectos fácilmente.</p>
-        
-        <form action="{%url 'proyectos'%}" method="post" id="proyecto-form">
-            {% csrf_token %}
-            <label for="nombre-proyecto">Nombre del Proyecto:</label>
-            <input type="text"name="nombre" id="nombre-proyecto" required>
-            
-            <label for="descripcion-proyecto">Descripción:</label>
-            <textarea id="descripcion-proyecto"name="descripcion" required></textarea>
-            
-            <label for="fecha-inicio">Fecha de Inicio:</label>
-            <input type="date"name="fecha_inicio" id="fecha-inicio" required>
-            
-            <label for="fecha-fin">Fecha de Finalización:</label>
-            <input type="date"name="fecha_fin" id="fecha-fin" required>
-            
-            <button type="submit" class="add-proyecto">Agregar Proyecto</button>
-        </form>
         <br>
         
         <div class="proyecto-container" id="lista-proyectos">
@@ -55,7 +37,7 @@
             <h3>{{ proyecto.nombre }}</h3>
             <p>{{ proyecto.descripcion }}</p>
             <p><strong>Inicio:</strong> {{ proyecto.fecha_inicio }} - <strong>Fin:</strong> {{ proyecto.fecha_fin }}</p>
-
+        
             <label for="estado-{{ proyecto.id_proyecto }}">Estado:</label>
             <select id="estado-{{ proyecto.id_proyecto }}" onchange="actualizarEstado('{{ proyecto.id_proyecto }}')">
                 <option value="pendiente" {% if proyecto.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
@@ -67,6 +49,33 @@
         <p>No hay proyectos aún.</p>
     {% endfor %}
             <!-- Los proyectos se agregarán dinámicamente aquí -->
+            <script>
+                function actualizarEstado(proyectoId) {
+                    console.log("Cambiando estado del proyecto:", proyectoId);  // Debug
+                
+                    const nuevoEstado = document.getElementById(`estado-${proyectoId}`).value;
+                    const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+                
+                    fetch(`/proyectos/editar_estado/${proyectoId}/`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "X-CSRFToken": csrftoken
+                        },
+                        body: new URLSearchParams({ "estado": nuevoEstado })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.mensaje) {
+                            alert("Estado actualizado correctamente");
+                        } else {
+                            alert("Error al actualizar estado");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+                </script>
+                
         </div>
     </section>
     

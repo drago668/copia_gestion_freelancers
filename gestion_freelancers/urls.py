@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path,include
 
-from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,salir
+from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,salir
 
 
 urlpatterns = [
@@ -32,5 +32,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
    path('accounts/logout/', LogoutView.as_view(), name='logout'),
    path('login/', LoginView.as_view(), name='login'),
+   path("proyectos/", proyectos, name="proyectos"),
+   path("proyectos/editar_estado/<int:proyecto_id>/", actualizar_estado_proyecto, name="editar_estado_proyecto"),
 
 ]
