@@ -15,7 +15,7 @@ class ContratoAdmin(admin.ModelAdmin):
 
 @admin.register(Proyecto)
 class ProyectoAdmin(admin.ModelAdmin):
-    list_display=('nombre', 'descripcion','fecha_inicio', 'fecha_fin', 'fecha_creacion')
+    list_display=('id_proyecto','nombre', 'descripcion','fecha_inicio', 'fecha_fin', 'fecha_creacion')
 #admin.site.register(Proyecto, ProyectoAdmin)
 
 @admin.register(SeguimientoTiempo)
