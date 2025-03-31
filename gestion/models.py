@@ -69,3 +69,4 @@ class SeguimientoTiempo(models.Model):
     def __str__(self):
         return f"Seguimiento {self.id_tiempo} - Tarea {self.id_tarea}"
 # Create your models here.
+
