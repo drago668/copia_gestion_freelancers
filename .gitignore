@@ -1,9 +1,0 @@
-# Ignorar la base de datos SQLite
-db.sqlite3
-
-# Ignorar los archivos de cache de Python
-__pycache__/
-*.pyc
-
-# Ignorar migraciones compiladas
-*/migrations/__pycache__/
