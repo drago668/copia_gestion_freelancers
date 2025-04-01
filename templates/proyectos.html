@@ -13,7 +13,9 @@
         <nav>
             <ul>
                 <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'contrato'%}">Contratos</a></li>
+                <li><a href="{% url 'proyectos'%}">Ver Proyectos</a></li>
+                <li><a href="{% url 'contrato'%}">Añadir Contratos</a></li>
+                <li><a href="{% url 'gestion_contratos'%}">Añadir Contratos</a></li>
                 <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
                 <li><a href="{% url 'perfil'%}">Perfil</a></li>
                 <li>{% if request.user.is_authenticated %}

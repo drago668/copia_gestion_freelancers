@@ -17,9 +17,10 @@
         <h1>Software de Gestión para Freelancers</h1>
         <nav>
             <ul>
+                <li><a href="{% url 'gestion_contratos'%}">Añadir Contratos</a></li>
+                <li><a href="{% url 'contrato'%}">Ver Contratos</a></li>
+                <li><a href="{% url 'proyecto' %}">Añadir Proyectos</a></li>
                 <li><a href="{% url 'proyectos'%}">ver proyectos</a></li>
-                <li><a href="{% url 'contrato' %}">Contratos</a></li>
-                <li><a href="{% url 'proyecto' %}">Gestión de Proyectos</a></li>
                 <li><a href="{% url 'tiempo' %}">Seguimiento de Tiempos</a></li>
                 <li><a href="{% url 'perfil' %}">Perfil</a></li>
                 <li>{% if request.user.is_authenticated %} 

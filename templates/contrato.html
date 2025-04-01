@@ -12,9 +12,10 @@
         <h1>Contratos</h1>
         <nav>
             <ul>
-                <li><a href="{% url 'proyectos'%}">Ver Contratos</a></li>
                 <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'proyecto'%}">Gestión de Proyectos</a></li>
+                <li><a href="{% url 'proyectos'%}">Ver proyectos</a></li>
+                <li><a href="{% url 'proyecto'%}">Añadir Proyectos</a></li>
+                <li><a href="{% url 'gestion_contratos' %}">Ver Contratos</a></li>
                 <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
                 <li><a href="{% url 'perfil'%}">Perfil</a></li>
                 <li>{% if request.user.is_authenticated %}
@@ -30,7 +31,8 @@
     <section id="contratos">
         <h2>Creación de Contratos</h2>
         <p>Facilita la creación y gestión de contratos con clientes.</p>
-        <form>
+        <form  method="post" action="{% url 'gestion_contratos' %}">
+            {% csrf_token %}
             <label for="nombre_cliente">Nombre del Cliente:</label>
             <input type="text" id="nombre_cliente" name="nombre_cliente" required>
             

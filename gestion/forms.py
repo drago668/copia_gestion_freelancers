@@ -1,5 +1,6 @@
 from django import forms
 from gestion.models import CustomUser
+from django.contrib.auth.forms import AuthenticationForm
 
 class UsuarioForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
@@ -17,5 +18,10 @@ class UsuarioForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+class CustomAuthenticationForm(AuthenticationForm):
+    pass
+   # class Meta:
+      #  model = CustomUser  # O tu modelo de usuario
+      #  fields = ['username', 'password']
 
     

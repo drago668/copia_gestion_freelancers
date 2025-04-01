@@ -18,21 +18,25 @@ from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path,include
 
-from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,salir
+from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,salir,login_view,gestion_contratos
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path("", index, name='inicio'),
     path('contrato/', contrato, name='contrato'),
     path('proyecto/', proyecto,name='proyecto'),
     path('tiempo/', tiempo, name='tiempo'),
     path('perfil/', perfil, name='perfil'),
     path('registrar/', registrar, name='registrar'),
-    path('accounts/', include('django.contrib.auth.urls')),
-   path('accounts/logout/', LogoutView.as_view(), name='logout'),
-   path('login/', LoginView.as_view(), name='login'),
-   path("proyectos/", proyectos, name="proyectos"),
-   path("proyectos/editar_estado/<int:proyecto_id>/", actualizar_estado_proyecto, name="editar_estado_proyecto"),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
+    #path('login/', LoginView.as_view(), name='login'),
+    path("proyectos/", proyectos, name="proyectos"),
+    path("proyectos/editar_estado/<int:proyecto_id>/", actualizar_estado_proyecto, name="editar_estado_proyecto"),
+    path("gestion_contratos/", gestion_contratos, name="gestion_contratos"),
 
 ]

@@ -127,8 +127,12 @@ STATICFILES_DIRS = [BASE_DIR / "static",]
 AUTH_USER_MODEL = 'gestion.CustomUser'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+LOGIN_URL = '/login/' 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Asegura que Django use su backend estándar
+]
 
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'  
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'  # Redirige a la página de inicio después de iniciar sesión
 LOGOUT_REDIRECT_URL = '/'  # Redirige a la página de inicio después de cerrar sesión

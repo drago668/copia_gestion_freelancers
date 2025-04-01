@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Gestión de Contratos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Contratos</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'inicio'%}">Inicio</a></li>
+                <li><a href="{% url 'contrato'%}">Crear Contrato</a></li>
+                <li><a href="{% url 'proyecto'%}">Añadir Proyecto</a></li>
+                <li><a href="{% url 'proyectos'%}">Ver proyectos</a></li>
+                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
+                <li><a href="{% url 'perfil'%}">Perfil</a></li>
+                <li>{% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
+                    </form>
+                    {%endif%}</li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="contrato">
+        <h2>Lista de Contratos</h2>
+        <p>Añade y gestiona tus contratos con los clientes.</p>
+        <br>
+        <div class="proyecto-container" id="lista-proyectos">
+       <!-- <div class="contrato-container" id="lista-contrato">-->
+            {% for contrato in contratos %}
+            <div class="proyecto-item" id="contrato-{{ contrato.id_contrato }}">
+                <h3>{{ contrato.nombre_cliente }}</h3>
+                <p>{{ contrato.descripcion }}</p>
+                <p><strong>Inicio:</strong> {{ contrato.fecha_inicio }} - <strong>Fin:</strong> {{ contrato.fecha_fin }}</p>
+                <p><strong>Monto Acordado:</strong> ${{ contrato.monto }}</p>
+                <p>{{ contrato.fecha_creacion }}</p>
+        
+                <label for="estado-{{ contrato.id_contrato }}">Estado:</label>
+                <select id="estado-{{ contrato.id_contrato }}" onchange="actualizarEstado('{{ contrato.id_contrato }}')">
+                    <option value="pendiente" {% if contrato.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                    <option value="en_proceso" {% if contrato.estado == 'en_proceso' %}selected{% endif %}>En Proceso</option>
+                    <option value="terminado" {% if contrato.estado == 'terminado' %}selected{% endif %}>Terminado</option>
+                </select>
+            
+            </div>
+        {% empty %}
+            <p>No hay contratos aún.</p>
+        {% endfor %}
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Software de Gestión para Freelancers</p>
+    </footer>
+
+    <script>
+        function actualizarEstado(contratoId) {
+            console.log("Cambiando estado del contrato:", contratoId);  // Debug
+        
+            const nuevoEstado = document.getElementById(`estado-${contratoId}`).value;
+            const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+        
+            fetch(`/contrato/editar_estado/${contratoId}/`,{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": csrftoken
+                },
+                body: new URLSearchParams({ "estado": nuevoEstado })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.mensaje) {
+                    alert("Estado actualizado correctamente");
+                } else {
+                    alert("Error al actualizar estado");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
