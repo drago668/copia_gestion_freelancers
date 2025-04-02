@@ -50,9 +50,7 @@ def registrar(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Crea el usuario pero no lo guarda
-            user.is_active = True  # ⬅️ Lo activas manualmente
-            user.save()  # Ahora sí lo guarda
+            user = form.save()  # Crea el usuario pero no lo guarda
             login(request, user)
             return redirect('inicio')
     else:
