@@ -163,3 +163,80 @@ img {
     border-radius: 8px;
     max-height: 300px;
 }
+
+
+
+
+/* mis cambios para ser responsive*/
+
+.navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+    margin-top: 0;
+}
+
+.navbar {
+    background-color: #204abd;  /* Azul oscuro */
+    padding: 15px;
+    color: #128F76;
+    
+}
+
+.navbar .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.navbar .nav-link {
+    color: #ffffff;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: #FACC15;  /* Amarillo */
+}
+
+.navbar .btn {
+    padding: 8px 15px;
+    border-radius: 10px;
+}
+
+.navbar-nav{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+.nav-item{
+    padding: 0 10px;
+}
+.cerrar_sesion{
+    margin-top: 30px;
+}
+
+.carousel-indicators li {
+    list-style: none; /* Elimina el marcador predeterminado */
+}
+.carousel-caption p {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con transparencia */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.perfil_img{
+    background: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+}
+.perfil-img{
+    width: 431px;
+    background: rgb(255, 255, 255);
+}

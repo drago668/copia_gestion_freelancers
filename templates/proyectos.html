@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <title>Gestión de Proyectos</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-</head>
-<body>
-    <header>
-        <h1>Gestión de Proyectos</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'proyectos'%}">Ver Proyectos</a></li>
-                <li><a href="{% url 'contrato'%}">Añadir Contratos</a></li>
-                <li><a href="{% url 'gestion_contratos'%}">Añadir Contratos</a></li>
-                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
-                <li><a href="{% url 'perfil'%}">Perfil</a></li>
-                <li>{% if request.user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
-                    </form>
-                    {%endif%}</li>
-            </ul>
-        </nav>
-    </header>
-    
+{% extends 'base.html' %}
+
+{% block title %}Inicio - gestion freelancers{% endblock %}
+
+{% block content %}
+{%load static%}
+
     <section id="proyectos">
         <h2>Gestión de Proyectos</h2>
         <p>Añade y gestiona tus proyectos fácilmente.</p>
@@ -81,9 +58,5 @@
         </div>
     </section>
     
-    <footer>
-        <p>&copy; 2025 Software de Gestión para Freelancers</p>
-    </footer>
-</body>
-</html>
+{%endblock%}
 

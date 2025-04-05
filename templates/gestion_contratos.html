@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <title>Gestión de Contratos</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-</head>
-<body>
-    <header>
-        <h1>Gestión de Contratos</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'contrato'%}">Crear Contrato</a></li>
-                <li><a href="{% url 'proyecto'%}">Añadir Proyecto</a></li>
-                <li><a href="{% url 'proyectos'%}">Ver proyectos</a></li>
-                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
-                <li><a href="{% url 'perfil'%}">Perfil</a></li>
-                <li>{% if request.user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
-                    </form>
-                    {%endif%}</li>
-            </ul>
-        </nav>
-    </header>
+{% extends 'base.html' %}
+
+{% block title %}Inicio - gestion freelancers{% endblock %}
+
+{% block content %}
+{%load static%}
     
     <section id="contrato">
         <h2>Lista de Contratos</h2>
@@ -48,6 +25,47 @@
                     <option value="en_proceso" {% if contrato.estado == 'en_proceso' %}selected{% endif %}>En Proceso</option>
                     <option value="terminado" {% if contrato.estado == 'terminado' %}selected{% endif %}>Terminado</option>
                 </select>
+
+
+                <p class="d-inline-flex gap-1">
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ contrato.id_contrato }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      editar<img src="{%static 'img/lapiz2.png'%}" alt="" style="display: inline;">
+                    </a>
+                   
+                  </p>
+                  <div class="collapse" id="collapseExample-{{ contrato.id_contrato }}">
+                    <div class="card card-body">
+                    
+                            <h2>Creación de Contratos</h2>
+                            <p>Facilita la creación y gestión de contratos con clientes.</p>
+                            <form  method="post" action="{% url 'gestion_contratos' %}">
+                                {% csrf_token %}
+                                <label for="nombre_cliente">Nombre del Cliente:</label>
+                                <input type="text" id="nombre_cliente" name="nombre_cliente" required>
+                                
+                                <label for="descripcion_servicio">Descripción del Servicio:</label>
+                                <textarea id="descripcion_servicio" name="descripcion_servicio" required></textarea>
+                                
+                                <label for="fecha_inicio">Fecha de Inicio:</label>
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+                                
+                                <label for="fecha_fin">Fecha de Finalización:</label>
+                                <input type="date" id="fecha_fin" name="fecha_fin" required>
+                                
+                                <label for="monto">Monto Acordado ($):</label>
+                                <input type="number" id="monto" name="monto" required>
+                                
+                                <button type="submit">Generar Contrato</button>
+                            </form>
+
+
+                      
+                    </div>
+                  </div>
+
+
+
+                
             
             </div>
         {% empty %}
@@ -56,9 +74,7 @@
         </div>
     </section>
     
-    <footer>
-        <p>&copy; 2025 Software de Gestión para Freelancers</p>
-    </footer>
+  
 
     <script>
         function actualizarEstado(contratoId) {
@@ -86,5 +102,4 @@
             .catch(error => console.error("Error:", error));
         }
     </script>
-</body>
-</html>
+{%endblock%}

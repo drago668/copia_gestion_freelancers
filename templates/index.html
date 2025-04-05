@@ -1,46 +1,72 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-    <title>Software de Gestión para Freelancers</title>
-   
-    
-</head>
-<body>
-    <header>
-        {% if request.user.is_authenticated %}
-    <h6 style="text-align: left;">Bienvenido, {{ request.user.username }}!</h6>
-    {% endif %}
-        <h1>Software de Gestión para Freelancers</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'gestion_contratos'%}">Añadir Contratos</a></li>
-                <li><a href="{% url 'contrato'%}">Ver Contratos</a></li>
-                <li><a href="{% url 'proyecto' %}">Añadir Proyectos</a></li>
-                <li><a href="{% url 'proyectos'%}">ver proyectos</a></li>
-                <li><a href="{% url 'tiempo' %}">Seguimiento de Tiempos</a></li>
-                <li><a href="{% url 'perfil' %}">Perfil</a></li>
-                <li>{% if request.user.is_authenticated %} 
-                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
-                    </form>
-                    {%endif%}</li>
-            </ul>
-        </nav>
-    </header>
-    
+{% extends 'base.html' %}
+
+{% block title %}Inicio - gestion freelancers{% endblock %}
+
+{% block content %}
+{%load static%}
+
+<div id="carouselExampleIndicators" class="carousel slide carousel-fade"  class="carousel slide w-75 h-50 mx-auto"data-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <!--
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>-->
+  <div class="carousel-inner">
+    <div class="carousel-item active ">
+      <img class="d-block w-100" src="{% static 'img/contract.jpeg'%}" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Contrato</h5>
+      <p >Facilita la creación y gestión de contratos con clientes.</p>
+    </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{%static 'img/Tiempouu.jpeg'%}" alt="Second slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Tiempo</h5>
+      <p>Registra y monitorea el tiempo dedicado a cada tarea.</p>
+    </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{%static 'img/proyecti.jpeg'%}" alt="Third slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Proyectos</h5>
+      <p>Organiza y gestiona tus proyectos de manera eficiente.</p>
+    </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only"></span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only"></span>
+  </a>
+</div>|
+
+
+  <div  class="container">
+    <div class="row">
+      <div class="col-sm">
     <section id="contratos">
         <h2>Creación de Contratos</h2>
-        <p>Facilita la creación y gestión de contratos con clientes.</p>
+        <p>Crea, organiza y firma tus contratos sin complicaciones <br>
+ crea y administra contratos de forma rápida, segura y completamente digital.Tendrás todo lo que necesitas para manejar tus acuerdos con clientes y colaboradores en un solo lugar.
+          
+          </p>
         <img src="{%static 'img/contra.jpeg'%}" alt="Contrato">
         <br>
         <a href="{% url 'contrato' %}" class="btn-ir">Ir a contratos</a>
     </section>
-    
+      </div>
+    <div class="col-sm">
+  
     <section id="proyectos">
         <h2>Gestión de Proyectos</h2>
         <p>Organiza y gestiona tus proyectos de manera eficiente.</p>
@@ -48,7 +74,8 @@
         <br>
         <a href="{% url 'proyecto' %}" class="btn-ir">Ir a Proyectos</a>
     </section>
-    
+  </div>
+  <div class="col-sm">
     <section id="tiempo">
         <h2>Seguimiento de Tiempos</h2>
         <p>Registra y monitorea el tiempo dedicado a cada tarea.</p>
@@ -56,13 +83,12 @@
         <br>
         <a href="{% url 'tiempo' %}" class="btn-ir">Ir a seguir Tiempo</a>
     </section>
-    <br>
-    <br>
-    <br>
-    <br>
+  </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2025 Software de Gestión para Freelancers. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+  </div>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

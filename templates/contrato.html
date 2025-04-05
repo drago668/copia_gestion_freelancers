@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <title>Creación de Contratos</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-</head>
-<body>
-    <header>
-        <h1>Contratos</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'proyectos'%}">Ver proyectos</a></li>
-                <li><a href="{% url 'proyecto'%}">Añadir Proyectos</a></li>
-                <li><a href="{% url 'gestion_contratos' %}">Ver Contratos</a></li>
-                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
-                <li><a href="{% url 'perfil'%}">Perfil</a></li>
-                <li>{% if request.user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
-                    </form>
-                    {%endif%}</li>
-            </ul>
-        </nav>
-    </header>
+{% extends 'base.html' %}
+
+{% block title %}Inicio - gestion freelancers{% endblock %}
+
+{% block content %}
+{%load static%}
     
     <section id="contratos">
         <h2>Creación de Contratos</h2>
@@ -53,8 +30,4 @@
     </section>
     <br>
     
-    <footer>
-        <p>&copy; 2025 Software de Gestión para Freelancers. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+{% endblock%}

@@ -1,49 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    {%load static%}
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-</head>
+{% block title %}Inicio - gestion freelancers{% endblock %}
 
-<body>
-    <header>
-        <h1>Perfil de Freelancers</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'proyectos'%}">Ver proyectos</a></li>
-                <li><a href="{% url 'contrato' %}">Ver Contratos</a></li>
-                <li><a href="{% url 'proyecto'%}">Gestión de Proyectos</a></li>
-                <li><a href="{% url 'tiempo'%}">Seguimiento de Tiempos</a></li>
-                <li>{% if request.user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar
-                            sesión</button>
-                    </form>
-                    {%endif%}
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="proyecto.html">Proyectos</a></li>
-            <li><a href="contrato.html">Contratos</a></li>
-            <li><a href="perfil.html">Perfil</a></li>
-        </ul>
-    </nav>
+{% block content %}
+{%load static%}
 
     <section id="perfil">
         <h2>Mi Información</h2>
         <div class="perfil-container">
-            <img src="{% static 'img/perfil.jpeg'%}" alt="Foto de perfil" class="perfil-img">
+            <img src="{% static 'img/cuenta.png'%}"  alt="Foto de perfil" class="perfil-img">
             <br>
             <br>
             <div class="proyecto-item" id="proyecto-{{ proyecto.id_proyecto }}">
@@ -124,9 +89,4 @@
     </section>
     <br>
 
-    <footer>
-        <p>&copy; 2025 Software de Gestión para Freelancers</p>
-    </footer>
-</body>
-
-</html>
+{%endblock%}

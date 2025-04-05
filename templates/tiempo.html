@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <title>Seguimiento de Tiempos</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-</head>
-<body>
-    <header>
-        <h1>Seguimiento de Tiempos</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'proyectos'%}">ver proyectos</a></li>
-                <li><a href="{% url 'inicio'%}">Inicio</a></li>
-                <li><a href="{% url 'contrato'%}">Contratos</a></li>
-                <li><a href="{% url 'proyecto' %}">Gestión de Proyectos</a></li>
-                <li><a href="{% url 'perfil'%}">Perfil</a></li>
-                <li>{% if request.user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="all: unset; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
-                    </form>
-                    {%endif%}</li>
-            </ul>
-        </nav>
-    </header>
-    
+{% extends 'base.html' %}
+
+{% block title %}Inicio - gestion freelancers{% endblock %}
+
+{% block content %}
+{%load static%}
     <section id="seguimiento-tiempo">
         <h2>Seguimiento de Tiempos</h2>
         <p>Registra y monitorea el tiempo dedicado a cada tarea.</p>
@@ -46,10 +23,7 @@
         </div>
     </section>
     
-    <footer>
-        <p>&copy; 2025 Software de Gestión para Freelancers</p>
-    </footer>
-    
+ 
     <script>
         function registrarTiempo() {
             const tarea = document.getElementById('tarea').value;
@@ -68,5 +42,4 @@
             }
         }
     </script>
-</body>
-</html>
+{% endblock %}
