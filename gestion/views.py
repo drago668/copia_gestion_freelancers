@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from .models import Proyecto,Contrato
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CustomAuthenticationForm
+from django.shortcuts import get_object_or_404
 
 @login_required
 def index(request):
@@ -130,4 +131,26 @@ def actualizar_estado_proyecto(request, proyecto_id):
         else:
             return JsonResponse({"error": "Estado no válido"}, status=400)
 
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
+@login_required
+def editar_contrato(request, contrato_id):
+    contrato = get_object_or_404(Contrato, id_contrato=contrato_id, id_usuario=request.user)
+    
+    if request.method == "POST":
+        contrato.nombre_cliente = request.POST.get("nombre_cliente")
+        contrato.descripcion = request.POST.get("descripcion_servicio")
+        contrato.fecha_inicio = request.POST.get("fecha_inicio")
+        contrato.fecha_fin = request.POST.get("fecha_fin")
+        contrato.monto = request.POST.get("monto")
+        contrato.save()
+        return redirect('gestion_contratos')  # O donde tengas la lista de contratos
+    
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+@login_required
+def eliminar_contrato(request, contrato_id):
+    contrato = get_object_or_404(Contrato, id_contrato=contrato_id, id_usuario=request.user)
+    if request.method == "POST":
+        contrato.delete()
+        return redirect('gestion_contratos')
     return JsonResponse({"error": "Método no permitido"}, status=405)

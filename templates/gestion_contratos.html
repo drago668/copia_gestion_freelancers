@@ -4,93 +4,101 @@
 
 {% block content %}
 {%load static%}
-    
-    <section id="contrato">
-        <h2>Lista de Contratos</h2>
-        <p>Añade y gestiona tus contratos con los clientes.</p>
-        <br>
-        <div class="proyecto-container" id="lista-proyectos">
-       <!-- <div class="contrato-container" id="lista-contrato">-->
-            {% for contrato in contratos %}
-            <div class="proyecto-item" id="contrato-{{ contrato.id_contrato }}">
-                <h3>{{ contrato.nombre_cliente }}</h3>
-                <p>{{ contrato.descripcion }}</p>
-                <p><strong>Inicio:</strong> {{ contrato.fecha_inicio }} - <strong>Fin:</strong> {{ contrato.fecha_fin }}</p>
-                <p><strong>Monto Acordado:</strong> ${{ contrato.monto }}</p>
-                <p>{{ contrato.fecha_creacion }}</p>
-        
-                <label for="estado-{{ contrato.id_contrato }}">Estado:</label>
-                <select id="estado-{{ contrato.id_contrato }}" onchange="actualizarEstado('{{ contrato.id_contrato }}')">
-                    <option value="pendiente" {% if contrato.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
-                    <option value="en_proceso" {% if contrato.estado == 'en_proceso' %}selected{% endif %}>En Proceso</option>
-                    <option value="terminado" {% if contrato.estado == 'terminado' %}selected{% endif %}>Terminado</option>
-                </select>
+
+<section id="contrato">
+    <h2>Lista de Contratos</h2>
+    <p>Añade y gestiona tus contratos con los clientes.</p>
+    <br>
+    <div class="proyecto-container" id="lista-proyectos">
+        <!-- <div class="contrato-container" id="lista-contrato">-->
+        {% for contrato in contratos %}
+        <div class="proyecto-item" id="contrato-{{ contrato.id_contrato }}">
+            <h3>{{ contrato.nombre_cliente }}</h3>
+            <p>{{ contrato.descripcion }}</p>
+            <p><strong>Inicio:</strong> {{ contrato.fecha_inicio }} - <strong>Fin:</strong> {{ contrato.fecha_fin }}</p>
+            <p><strong>Monto Acordado:</strong> ${{ contrato.monto }}</p>
+            <p><strong>ESTADO:</strong> ${{ contrato.estado }}</p>
+            <p>{{ contrato.fecha_creacion }}</p>
+            <form method="post" action="{% url 'eliminar_contrato' contrato.id_contrato %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este contrato?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar <img src="{% static 'img/basura.png' %}" alt="" style="display: inline;"></button>
+            </form>
 
 
-                <p class="d-inline-flex gap-1">
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ contrato.id_contrato }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      editar<img src="{%static 'img/lapiz2.png'%}" alt="" style="display: inline;">
-                    </a>
-                   
-                  </p>
-                  <div class="collapse" id="collapseExample-{{ contrato.id_contrato }}">
-                    <div class="card card-body">
+
+            <p class="d-inline-flex gap-1">
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ contrato.id_contrato }}"
+                    role="button" aria-expanded="false" aria-controls="collapseExample">
+                    editar<img src="{%static 'img/lapiz2.png'%}" alt="" style="display: inline;">
+                </a>
+
+            </p>
+            <div class="collapse" id="collapseExample-{{ contrato.id_contrato }}">
+                <div class="card card-body">
+
+                    <h2>Creación de Contratos</h2>
+                    <p>Facilita la creación y gestión de contratos con clientes.</p>
+                    <form method="post" action="{% url 'editar_contrato' contrato.id_contrato %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_contrato" value="{{ contrato.id_contrato }}">
+                        <label for="nombre_cliente">Nombre del Cliente:</label>
+                        <input type="text" id="nombre_cliente" name="nombre_cliente"
+                            value="{{ contrato.nombre_cliente }}" required>
+
+                        <label for="descripcion_servicio">Descripción del Servicio:</label>
+                        <textarea id="descripcion_servicio" name="descripcion_servicio"
+                            required>{{ contrato.descripcion }}</textarea>
+
+                        <label for="fecha_inicio">Fecha de Inicio:</label>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio"
+                            value="{{ contrato.fecha_inicio|date:'Y-m-d' }}" required>
+
+                        <label for="fecha_fin">Fecha de Finalización:</label>
+                        <input type="date" id="fecha_fin" name="fecha_fin" value="{{ contrato.fecha_fin|date:'Y-m-d' }}"
+                            required>
+
+                        <label for="monto">Monto Acordado ($):</label>
+                        <input type="number" id="monto" name="monto" value="{{ contrato.monto }}" required>
+
+                        <button type="submit">Actualizar Contrato</button>
+                    </form>
+
                     
-                            <h2>Creación de Contratos</h2>
-                            <p>Facilita la creación y gestión de contratos con clientes.</p>
-                            <form  method="post" action="{% url 'gestion_contratos' %}">
-                                {% csrf_token %}
-                                <label for="nombre_cliente">Nombre del Cliente:</label>
-                                <input type="text" id="nombre_cliente" name="nombre_cliente" required>
-                                
-                                <label for="descripcion_servicio">Descripción del Servicio:</label>
-                                <textarea id="descripcion_servicio" name="descripcion_servicio" required></textarea>
-                                
-                                <label for="fecha_inicio">Fecha de Inicio:</label>
-                                <input type="date" id="fecha_inicio" name="fecha_inicio" required>
-                                
-                                <label for="fecha_fin">Fecha de Finalización:</label>
-                                <input type="date" id="fecha_fin" name="fecha_fin" required>
-                                
-                                <label for="monto">Monto Acordado ($):</label>
-                                <input type="number" id="monto" name="monto" required>
-                                
-                                <button type="submit">Generar Contrato</button>
-                            </form>
-
-
-                      
-                    </div>
-                  </div>
+                    
 
 
 
-                
-            
+                </div>
             </div>
-        {% empty %}
-            <p>No hay contratos aún.</p>
-        {% endfor %}
-        </div>
-    </section>
-    
-  
 
-    <script>
-        function actualizarEstado(contratoId) {
-            console.log("Cambiando estado del contrato:", contratoId);  // Debug
-        
-            const nuevoEstado = document.getElementById(`estado-${contratoId}`).value;
-            const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-        
-            fetch(`/contrato/editar_estado/${contratoId}/`,{
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "X-CSRFToken": csrftoken
-                },
-                body: new URLSearchParams({ "estado": nuevoEstado })
-            })
+
+
+
+
+        </div>
+        {% empty %}
+        <p>No hay contratos aún.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+<script>
+    function actualizarEstado(contratoId) {
+        console.log("Cambiando estado del contrato:", contratoId);  // Debug
+
+        const nuevoEstado = document.getElementById(`estado-${contratoId}`).value;
+        const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+        fetch(`/contrato/editar_estado/${contratoId}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": csrftoken
+            },
+            body: new URLSearchParams({ "estado": nuevoEstado })
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.mensaje) {
@@ -100,6 +108,6 @@
                 }
             })
             .catch(error => console.error("Error:", error));
-        }
-    </script>
+    }
+</script>
 {%endblock%}

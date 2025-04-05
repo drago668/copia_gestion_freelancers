@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path,include
 
-from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,salir,login_view,gestion_contratos
+from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,salir,login_view,gestion_contratos,editar_contrato,eliminar_contrato
 from django.contrib.auth import views as auth_views
 
 
@@ -38,5 +38,8 @@ urlpatterns = [
     path("proyectos/", proyectos, name="proyectos"),
     path("proyectos/editar_estado/<int:proyecto_id>/", actualizar_estado_proyecto, name="editar_estado_proyecto"),
     path("gestion_contratos/", gestion_contratos, name="gestion_contratos"),
+    path('contrato/editar/<int:contrato_id>/', editar_contrato, name='editar_contrato'),
+    path('contrato/eliminar/<int:contrato_id>/', eliminar_contrato, name='eliminar_contrato'),
 
+     
 ]
