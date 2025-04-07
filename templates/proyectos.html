@@ -16,47 +16,66 @@
             <h3>{{ proyecto.nombre }}</h3>
             <p>{{ proyecto.descripcion }}</p>
             <p><strong>Inicio:</strong> {{ proyecto.fecha_inicio }} - <strong>Fin:</strong> {{ proyecto.fecha_fin }}</p>
+
+        <div  class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <form method="post" action="{% url 'eliminar_proyecto' proyecto.id_proyecto %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar <img src="{% static 'img/basura.png' %}" alt="" style="display: inline;"></button>
+                        </form>
+                </div>
+                <div class="col-sm">
+                 <form method="post" action="{% url 'crear_tarea' proyecto.id_proyecto%}" >
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">crear tareas </button>
+                        </form>
+                 </div>
+                    <p class="d-inline-flex gap-1">
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ proyecto.id_proyecto }}"
+                            role="button" aria-expanded="false" aria-controls="collapseExample">
+                            editar<img src="{%static 'img/lapiz2.png'%}" alt="" style="display: inline;">
+                        </a>
         
-            <label for="estado-{{ proyecto.id_proyecto }}">Estado:</label>
-            <select id="estado-{{ proyecto.id_proyecto }}" onchange="actualizarEstado('{{ proyecto.id_proyecto }}')">
-                <option value="pendiente" {% if proyecto.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
-                <option value="en_proceso" {% if proyecto.estado == 'en_proceso' %}selected{% endif %}>En Proceso</option>
-                <option value="terminado" {% if proyecto.estado == 'terminado' %}selected{% endif %}>Terminado</option>
-            </select>
+                    </p>
+               
+           
+
+            
+           
+
+             <div class="collapse" id="collapseExample-{{ proyecto.id_proyecto }}">
+                <div class="card card-body">
+                 <form action="{% url 'editar_proyecto' proyecto.id_proyecto %}"method="post" id="proyecto-form">
+                 <div class="form-group">
+                        {% csrf_token %}
+                        <label for="nombre-proyecto">Nombre del Proyecto:</label>
+                        <input class="form-control" type="text"name="nombre" id="nombre-proyecto" value="{{ proyecto.nombre}}" required>
+                        
+                        <label for="descripcion-proyecto">Descripción:</label>
+                        <textarea class="form-control" id="descripcion-proyecto"name="descripcion"  required>{{ proyecto.descripcion}}</textarea>
+                        
+                        <label for="fecha-inicio">Fecha de Inicio:</label>
+                        <input class="custom-date"type="date"name="fecha_inicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d' }}" id="fecha-inicio" required>
+                        
+                        <label for="fecha-fin">Fecha de Finalización:</label>
+                        <input type="date"name="fecha_fin" id="fecha-fin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" required>
+                        <br>
+                        
+                         <button type="submit">Actualizar proyecto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+         </div>
+        </div>
+           
         </div>
     {% empty %}
         <p>No hay proyectos aún.</p>
     {% endfor %}
             <!-- Los proyectos se agregarán dinámicamente aquí -->
-            <script>
-                function actualizarEstado(proyectoId) {
-                    console.log("Cambiando estado del proyecto:", proyectoId);  // Debug
-                
-                    const nuevoEstado = document.getElementById(`estado-${proyectoId}`).value;
-                    const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-                
-                    fetch(`/proyectos/editar_estado/${proyectoId}/`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "X-CSRFToken": csrftoken
-                        },
-                        body: new URLSearchParams({ "estado": nuevoEstado })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.mensaje) {
-                            alert("Estado actualizado correctamente");
-                        } else {
-                            alert("Error al actualizar estado");
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-                }
-                </script>
-                
-        </div>
-    </section>
-    
+            
+    </div>
 {%endblock%}
 

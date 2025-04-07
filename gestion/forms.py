@@ -1,6 +1,16 @@
 from django import forms
 from gestion.models import CustomUser
 from django.contrib.auth.forms import AuthenticationForm
+from .models import Tarea
+
+class TareaForm(forms.ModelForm):
+    class Meta:
+        model = Tarea
+        # Solo mostramos los campos que el usuario debe completar
+        fields = ['nombre', 'descripcion', 'estado']
+        widgets = {
+            'estado': forms.Select(choices=Tarea.ESTADOS)
+        }
 
 class UsuarioForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
@@ -37,3 +47,7 @@ class CustomAuthenticationForm(AuthenticationForm):
       #  fields = ['username', 'password']
 
     
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['imagen','username',]

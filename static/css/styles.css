@@ -232,11 +232,27 @@ img {
     border-radius: 5px;
 }
 
-.perfil_img{
-    background: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-}
 .perfil-img{
-    width: 431px;
+    width: 309px;
+    height: 400px;
     background: rgb(255, 255, 255);
+    border-radius: 153px;
+    max-height: 300px;
+}
+
+#cronometro {
+color: #28a745;
+font-family: 'Courier New', Courier, monospace;
+text-align: center;
+margin: 10px 0;
+}
+
+#id_nombre{
+    width: 60rem;
+}
+#id_descripcion{
+    width: 60rem;
+}
+#id_estado{
+    width: 60rem;
 }

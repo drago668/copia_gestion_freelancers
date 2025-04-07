@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 
-from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,salir,login_view,gestion_contratos,editar_contrato,eliminar_contrato
+from gestion.views import index, contrato, proyecto,tiempo, perfil,registrar,proyectos,actualizar_estado_proyecto,gestion_contratos,editar_contrato,eliminar_contrato,editar_proyecto,eliminar_proyecto
 from django.contrib.auth import views as auth_views
-
+from gestion import views
 
 urlpatterns = [
 
@@ -40,6 +42,17 @@ urlpatterns = [
     path("gestion_contratos/", gestion_contratos, name="gestion_contratos"),
     path('contrato/editar/<int:contrato_id>/', editar_contrato, name='editar_contrato'),
     path('contrato/eliminar/<int:contrato_id>/', eliminar_contrato, name='eliminar_contrato'),
+    path('proyecto/eliminar/<int:proyecto_id>/', eliminar_proyecto, name='eliminar_proyecto'),
+    path('tareas/', views.seguimiento_tareas, name='seguimiento_tareas'),
+    path('tarea/<int:id_tarea>/', views.detalle_tarea, name='detalle_tarea'),
+    path('tarea/<int:tarea_id>/iniciar/', views.iniciar_seguimiento, name='iniciar_seguimiento'),
+    path('seguimiento/<int:seguimiento_id>/detener/', views.detener_seguimiento, name='detener_seguimiento'),
+    path('tarea/<int:tarea_id>/resetear/', views.resetear_seguimiento, name='resetear_seguimiento'),
+    path('proyecto/editar/<int:proyecto_id>/', editar_proyecto, name='editar_proyecto'),
+    path('proyecto/<int:proyecto_id>/crear_tarea/', views.crear_tarea, name='crear_tarea'),
+
 
      
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

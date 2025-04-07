@@ -25,5 +25,5 @@ class SeguimientoTiempoAdmin(admin.ModelAdmin):
 
 @admin.register(Tarea)
 class TareaAdmin(admin.ModelAdmin):
-    list_display=('id_proyecto', 'nombre','descripcion','estado','fecha_creacion')
+    list_display=('nombre','id_proyecto','id_tarea','descripcion','estado','fecha_creacion')
 #admin.site.register(Tarea, TareaAdmin)

@@ -5,6 +5,7 @@ class CustomUser(AbstractUser):
     id_usuario = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(unique=True, max_length=100)
+    imagen = models.ImageField(upload_to='perfiles/', default='perfiles/default.png')
     #contrasena = models.CharField(max_length=255)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 

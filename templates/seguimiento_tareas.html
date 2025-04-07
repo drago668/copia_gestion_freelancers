@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Seguimiento de Tareas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Seguimiento de Tareas</h2>
+  <div class="card mb-3">
+      <div class="card-body">
+  {% for tarea in tareas %}
+    
+        <h3>{{ tarea.nombre }}</h3>
+        <p>{{ tarea.descripcion }}</p>
+        <h5 style="display: inline">Proyecto:</h5> {{tarea.id_proyecto.nombre}}</p>
+        <p><strong>Estado:</strong> {{ tarea.estado }}</p>
+       <div  class="container">
+                <div class="row">
+                  <div class="col-sm">
+     <form action="{% url 'detalle_tarea' tarea.id_tarea %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">ver seguimiento</button>
+                 </form>
+                 </div>
+                 </div>
+          {% if seguimiento_activo %}
+            <p><strong>Seguimiento en curso desde:</strong> {{ seguimiento_activo.inicio|date:"d/m/Y H:i:s" }}</p>
+            <div id="cronometro-{{ tarea.id_tarea }}" style="font-size: 1.5rem; font-weight: bold;">00:00:00</div>
+            
+            <!-- Botones para detener o resetear el seguimiento -->
+            <div  class="container">
+                <div class="row">
+                  <div class="col-sm">
+                      <a href="{% url 'detener_seguimiento' seguimiento_activo.id_tiempo %}" class="btn btn-warning mt-2">Detener seguimiento</a>
+                      <br>
+                    </div>
+                    <div class="col-sm">
+                     <a href="{% url 'resetear_seguimiento' tarea.id_tarea %}" class="btn btn-secondary mt-2">Resetear seguimiento</a>
+                    </div>
+                </div>
+            </div>
+           
+            
+            <script>
+              (function() {
+                const cronometroId = "cronometro-{{ tarea.id_tarea }}";
+                const cronometro = document.getElementById(cronometroId);
+                // Usamos el tiempo almacenado en la base de datos para calcular el cronómetro
+                const inicio = new Date("{{ seguimiento_activo.inicio|date:'Y-m-d H:i:s' }}");
+
+                function actualizarCronometro() {
+                  const ahora = new Date();
+                  const diferencia = new Date(ahora - inicio); // diferencia en ms
+                  const horas = String(diferencia.getUTCHours()).padStart(2, '0');
+                  const minutos = String(diferencia.getUTCMinutes()).padStart(2, '0');
+                  const segundos = String(diferencia.getUTCSeconds()).padStart(2, '0');
+                  cronometro.textContent = `${horas}:${minutos}:${segundos}`;
+                }
+                actualizarCronometro();
+                setInterval(actualizarCronometro, 1000);
+              })();
+            </script>
+          {% else %}
+           <div  class="container">
+                <div class="row">
+                  <div class="col-sm">
+            <form action="{% url 'iniciar_seguimiento' tarea.id_tarea %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Iniciar seguimiento</button>
+                 </form>
+                 </div>
+                 </div>
+                        <!--     <a href="{% url 'iniciar_seguimiento' tarea.id_tarea %}" class="btn btn-primary">Iniciar seguimiento</a>-->
+          {% endif %}
+        
+
+  {% empty %}
+    <p>No hay tareas asignadas.</p>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}

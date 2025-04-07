@@ -19,20 +19,34 @@
             <p><strong>Monto Acordado:</strong> ${{ contrato.monto }}</p>
             <p><strong>ESTADO:</strong> ${{ contrato.estado }}</p>
             <p>{{ contrato.fecha_creacion }}</p>
-            <form method="post" action="{% url 'eliminar_contrato' contrato.id_contrato %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este contrato?');">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Eliminar <img src="{% static 'img/basura.png' %}" alt="" style="display: inline;"></button>
-            </form>
+
+            <div  class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <form method="post" action="{% url 'eliminar_contrato' contrato.id_contrato %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este contrato?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar <img src="{% static 'img/basura.png' %}" alt="" style="display: inline;"></button>
+                    </form>
+                  </div>
+
+
+                  <div class="col-sm">
+                    <p class="d-inline-flex gap-1">
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ contrato.id_contrato }}"
+                            role="button" aria-expanded="false" aria-controls="collapseExample">
+                            editar<img src="{%static 'img/lapiz2.png'%}" alt="" style="display: inline;">
+                        </a>
+        
+                    </p>
+                </div>
+
+                </div>
+            </div>
+            
 
 
 
-            <p class="d-inline-flex gap-1">
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ contrato.id_contrato }}"
-                    role="button" aria-expanded="false" aria-controls="collapseExample">
-                    editar<img src="{%static 'img/lapiz2.png'%}" alt="" style="display: inline;">
-                </a>
-
-            </p>
+            
             <div class="collapse" id="collapseExample-{{ contrato.id_contrato }}">
                 <div class="card card-body">
 
@@ -63,11 +77,7 @@
                         <button type="submit">Actualizar Contrato</button>
                     </form>
 
-                    
-                    
-
-
-
+                
                 </div>
             </div>
 

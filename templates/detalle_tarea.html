@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Detalle de Tarea{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ tarea.nombre }}</h2>
+    <p>{{ tarea.descripcion }}</p>
+    <p><strong>Estado:</strong> {{ tarea.estado }}</p>
+
+    <!-- Div para el cronómetro -->
+    <div id="cronometro" style="font-size: 2rem; font-weight: bold;">00:00:00</div>
+
+    {% if seguimiento_activo %}
+        <p><strong>Seguimiento en curso desde:</strong> {{ seguimiento_activo.inicio|date:"d/m/Y H:i:s" }}</p>
+        <!-- Botón para detener seguimiento -->
+        <form method="post" action="{% url 'detener_seguimiento' seguimiento_activo.id_tiempo %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning mt-2">Detener seguimiento</button>
+        </form>
+    {% else %}
+        <form id="form-iniciar-tiempo" method="post" action="{% url 'iniciar_seguimiento' tarea.id_tarea %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Iniciar seguimiento</button>
+        </form>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // El tiempo total acumulado (en milisegundos) lo calculamos en el backend y lo pasamos a la plantilla.
+    const tiempoInicial = {{ tiempo_total|default:0 }};
+    // Guardamos el tiempo en milisegundos al cargar la página
+    const t0 = new Date().getTime();
+    const cronometro = document.getElementById("cronometro");
+
+    function actualizarCronometro() {
+        const ahora = new Date().getTime();
+        // Suma el tiempo acumulado previamente más el tiempo transcurrido desde que se cargó la página.
+        const elapsed = tiempoInicial + (ahora - t0);
+        const totalSeconds = Math.floor(elapsed / 1000);
+        const horas = Math.floor(totalSeconds / 3600);
+        const minutos = Math.floor((totalSeconds % 3600) / 60);
+        const segundos = totalSeconds % 60;
+        const formato = num => num.toString().padStart(2, '0');
+        cronometro.textContent = `${formato(horas)}:${formato(minutos)}:${formato(segundos)}`;
+    }
+    actualizarCronometro();
+    setInterval(actualizarCronometro, 1000);
+});
+</script>
+{% endblock %}
