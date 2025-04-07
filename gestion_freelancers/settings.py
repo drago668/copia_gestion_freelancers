@@ -31,8 +31,7 @@ DEBUG = False
 #DEBUG = True
 
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
 
 # Application definition
 
