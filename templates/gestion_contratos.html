@@ -16,8 +16,10 @@
             <h3>{{ contrato.nombre_cliente }}</h3>
             <p>{{ contrato.descripcion }}</p>
             <p><strong>Inicio:</strong> {{ contrato.fecha_inicio }} - <strong>Fin:</strong> {{ contrato.fecha_fin }}</p>
+             <p><strong>terminos:</strong> {{ contrato.terminos }}</p>
             <p><strong>Monto Acordado:</strong> ${{ contrato.monto }}</p>
-            <p><strong>ESTADO:</strong> ${{ contrato.estado }}</p>
+           
+
             <p>{{ contrato.fecha_creacion }}</p>
 
             <div  class="container">
@@ -63,6 +65,10 @@
                         <textarea id="descripcion_servicio" name="descripcion_servicio"
                             required>{{ contrato.descripcion }}</textarea>
 
+                        <label for="terminos">Terminos del contrato:</label>
+                        <textarea id="terminos" name="terminos"
+                            required>{{ contrato.terminos }}</textarea>
+
                         <label for="fecha_inicio">Fecha de Inicio:</label>
                         <input type="date" id="fecha_inicio" name="fecha_inicio"
                             value="{{ contrato.fecha_inicio|date:'Y-m-d' }}" required>
@@ -72,7 +78,7 @@
                             required>
 
                         <label for="monto">Monto Acordado ($):</label>
-                        <input type="number" id="monto" name="monto" value="{{ contrato.monto }}" required>
+                        <input type="number" id="monto" name="monto" value="{{ contrato.monto|floatformat:2 }}" required>
 
                         <button type="submit">Actualizar Contrato</button>
                     </form>
@@ -95,29 +101,6 @@
 
 
 <script>
-    function actualizarEstado(contratoId) {
-        console.log("Cambiando estado del contrato:", contratoId);  // Debug
-
-        const nuevoEstado = document.getElementById(`estado-${contratoId}`).value;
-        const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-
-        fetch(`/contrato/editar_estado/${contratoId}/`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": csrftoken
-            },
-            body: new URLSearchParams({ "estado": nuevoEstado })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.mensaje) {
-                    alert("Estado actualizado correctamente");
-                } else {
-                    alert("Error al actualizar estado");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    }
+    document.getElementById('monto').value = parseFloat("{{ contrato.monto|default:0 }}".replace(',', '.'));
 </script>
 {%endblock%}

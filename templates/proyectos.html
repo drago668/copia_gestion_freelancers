@@ -20,17 +20,12 @@
         <div  class="container">
             <div class="row">
                 <div class="col-sm">
-                    <form method="post" action="{% url 'eliminar_proyecto' proyecto.id_proyecto %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Eliminar <img src="{% static 'img/basura.png' %}" alt="" style="display: inline;"></button>
-                        </form>
-                </div>
-                <div class="col-sm">
                  <form method="post" action="{% url 'crear_tarea' proyecto.id_proyecto%}" >
                             {% csrf_token %}
                             <button type="submit" class="btn btn-success">crear tareas </button>
                         </form>
                  </div>
+                 <div class="col-sm">
                     <p class="d-inline-flex gap-1">
                         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample-{{ proyecto.id_proyecto }}"
                             role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -38,6 +33,14 @@
                         </a>
         
                     </p>
+                </div>
+                
+                <div class="col-sm">
+                    <form method="post" action="{% url 'eliminar_proyecto' proyecto.id_proyecto %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar <img src="{% static 'img/basura.png' %}" alt="" style="display: inline;"></button>
+                        </form>
+                </div>
                
            
 

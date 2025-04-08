@@ -256,3 +256,7 @@ margin: 10px 0;
 #id_estado{
     width: 60rem;
 }
+
+#nombre_cliente{
+    width: 30rem;
+}

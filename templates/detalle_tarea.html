@@ -3,7 +3,7 @@
 {% block title %}Detalle de Tarea{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<section id="contrato" style="text-align:left;">
     <h2>{{ tarea.nombre }}</h2>
     <p>{{ tarea.descripcion }}</p>
     <p><strong>Estado:</strong> {{ tarea.estado }}</p>
@@ -49,4 +49,5 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(actualizarCronometro, 1000);
 });
 </script>
+</section>
 {% endblock %}

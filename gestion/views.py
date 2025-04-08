@@ -92,16 +92,19 @@ def gestion_contratos(request):
         descripcion = request.POST.get("descripcion_servicio")
         fecha_inicio = request.POST.get("fecha_inicio")
         fecha_fin = request.POST.get("fecha_fin")
+        monto=request.POST.get("monto")
+        terminos=request.POST.get("terminos")
         #monto_acordado = request.POST.get("monto")  # Campo corregido
 
         if nombre_cliente and fecha_inicio and fecha_fin:
             Contrato.objects.create(
                 id_usuario=request.user,
                 nombre_cliente=nombre_cliente,
+                monto= monto,
+                terminos=terminos,
                 descripcion=descripcion,
                 fecha_inicio=fecha_inicio,
                 fecha_fin=fecha_fin,
-               # monto_acordado=monto_acordado
             )
             #return JsonResponse({"mensaje": "Contrato creado exitosamente"}, status=201)
         else:
@@ -208,6 +211,7 @@ def editar_contrato(request, contrato_id):
         contrato.descripcion = request.POST.get("descripcion_servicio")
         contrato.fecha_inicio = request.POST.get("fecha_inicio")
         contrato.fecha_fin = request.POST.get("fecha_fin")
+        contrato.terminos = request.POST.get("terminos")
         contrato.monto = request.POST.get("monto")
         contrato.save()
         return redirect('gestion_contratos')  # O donde tengas la lista de contratos

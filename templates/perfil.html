@@ -10,21 +10,11 @@
         <div class="perfil-container">
             
             
-            {% if request.user.imagen %}
-             <img src="{{ request.user.imagen.url }}" alt="Foto de perfil"  class="perfil-img">
-
-            {%else%}
+           
                 <img src="{% static 'img/cuenta.png'%}"  alt="Foto de perfil" class="perfil-img">
-            {% endif %}
+            
 
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1">Carga tu foto de perfil</label>
-                        <input type="file"  name="profile_picture"class="form-control-file" id="exampleFormControlFile1">
-                        <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
-                    </div>
-            </form>
+    
             <br>
             <br>
 
@@ -36,7 +26,7 @@
                 <p style="display: inline;">{{user.nombre}}</p>
                 <br>
                 <h5 style="display: inline;">Correo: </h5>
-                <p style="display: inline;">{{user.email}}</p>
+                <p style="display: inline;">{{user.correo}}</p>
             </div>
 
             <h2> Mis proyectos</h2>
@@ -49,9 +39,10 @@
                         
                         <!-- <p><strong>Inicio:</strong> {{ proyecto.fecha_inicio }} - <strong>Fin:</strong> {{ proyecto.fecha_fin }}</p>-->
                     </div>
+                      <br>
                     {% empty %}
                     <p>No tienes proyectos aún.</p>
-                    
+              
                 {% endfor %}
           <!-- </div>-->
 
@@ -60,12 +51,15 @@
             <div class="container">
                 {% for contrato in contratos %}
                     <div class="proyecto-item" id="contrato-{{ contrato.id_contrato }}">
-                        <h3 style="display: inline;">{{ contrato.nombre_cliente }}</h3>
+                        <h3 style="display: inline;">El cliente es {{ contrato.nombre_cliente }}</h3>
+                        <br>
+                        <p>Los terminos son {{ contrato.terminos|truncatewords:20 }}</p>
                         <p>{{ contrato.descripcion|truncatewords:20 }}</p>
                         <p><strong>Inicio:</strong> {{ contrato.fecha_inicio }} - <strong>Fin:</strong> {{contrato.fecha_fin }}</p>
                         <p>{{ contrato.fecha_creacion }}</p>
                         <!-- <p><strong>Inicio:</strong> {{ proyecto.fecha_inicio }} - <strong>Fin:</strong> {{ proyecto.fecha_fin }}</p>-->
                     </div>
+                    <br>
                         {% empty %}
                         <p>No tienes proyectos aún.</p>
                     
