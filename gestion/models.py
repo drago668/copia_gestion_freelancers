@@ -25,6 +25,7 @@ class Contrato(models.Model):
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
     terminos = models.TextField()
+    monto= models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False, default=0)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
